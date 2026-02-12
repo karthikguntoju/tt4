@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <title>TODOs</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 40px; }
+        .done { text-decoration: line-through; color: #777; }
+    </style>
+</head>
+<body>
+    <h1>My TODOs</h1>
+    <a th:href="@{/add}">Add new</a>
+    <table>
+        <tbody>
+        <tr th:each="todo : ${todos}">
+            <td>
+                <span th:text="${todo.title}" th:classappend="${todo.completed} ? 'done' : ''"></span>
+            </td>
+            <td>
+                <form th:action="@{/toggle/{id}(id=${todo.id})}" method="post" style="display:inline">
+                    <button type="submit" th:text="${todo.completed} ? 'Mark undone' : 'Mark done'"></button>
+                </form>
+            </td>
+            <td>
+                <form th:action="@{/delete/{id}(id=${todo.id})}" method="post" style="display:inline">
+                    <button type="submit">Delete</button>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</body>
+</html>
